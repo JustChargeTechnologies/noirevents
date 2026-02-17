@@ -10,7 +10,6 @@ import {
   Phone, 
   Instagram, 
   Facebook,
-  CheckCircle2,
   Menu,
   X,
   ArrowRight,
@@ -30,10 +29,10 @@ interface PricingPlan {
 }
 
 const pricingData: PricingPlan[] = [
-  { id: 'male-stag', name: 'Male Stag', price: 1500, description: 'Single entry for male' },
-  { id: 'female-stag', name: 'Female Stag', price: 1000, description: 'Single entry for female' },
-  { id: 'couple', name: 'Couple', price: 2500, description: 'Entry for one couple' },
-  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 Redeemable' },
+  { id: 'male-stag', name: 'Male Stag', price: 999, description: 'Single entry for male', extra: 'Unlimited Snacks' },
+  { id: 'female-stag', name: 'Female Stag', price: 1000, description: 'Single entry for female', extra: 'Unlimited Snacks' },
+  { id: 'couple', name: 'Couple', price: 1499, description: 'Entry for one couple' },
+  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 to ₹10000 Redeemable' },
   { id: 'vip', name: 'VIP Table', price: 14999, description: '₹12000 Redeemable' },
 ]
 
@@ -51,6 +50,7 @@ const App = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isQrZoomed, setIsQrZoomed] = useState(false)
   const [isHoveringLink, setIsHoveringLink] = useState(false)
+  const [successName, setSuccessName] = useState('')
 
   const bookingRef = useRef<HTMLDivElement>(null)
   
@@ -117,11 +117,9 @@ const App = () => {
     try {
       const formDataObj = new FormData(e.currentTarget)
       
-      // Additional Web3Forms configuration
-      formDataObj.append('subject', `New Event Booking: ${formData.name}`)
-      formDataObj.append('from_name', 'Noir Events Booking')
+      // Form data automatically includes all fields from the form
 
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/book`, {
         method: 'POST',
         body: formDataObj,
       })
@@ -129,8 +127,9 @@ const App = () => {
       const result = await response.json()
 
       if (result.success) {
+        setSuccessName(formData.name)
         setIsSuccess(true)
-        setFormData({ name: '', age: '', gender: 'male', entryType: 'male-stag', phone: '',screenshot: null })
+        setFormData({ name: '', age: '', gender: 'male', entryType: 'male-stag', phone: '', screenshot: null })
       } else {
         alert("Error: " + result.message)
       }
@@ -163,13 +162,14 @@ const App = () => {
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 glass border-b border-white/10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div 
+          <a 
+            href="#home"
             className="text-2xl font-black tracking-tighter cursor-pointer"
             onMouseEnter={() => setIsHoveringLink(true)}
             onMouseLeave={() => setIsHoveringLink(false)}
           >
             NOIR <span className="text-brand-pink">EVENTS</span>
-          </div>
+          </a>
           
           <div className="hidden md:flex items-center gap-8">
             {['About', 'Pricing', 'Contact'].map((item) => (
@@ -211,7 +211,7 @@ const App = () => {
 
       <main>
         {/* Hero Section */}
-        <section id="about" className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
+        <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             <img 
@@ -306,7 +306,7 @@ const App = () => {
           </motion.div>
         </section>
 
-        <section className="py-24 px-6 relative">
+        <section id="about" className="py-24 px-6 relative">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
               {[
@@ -391,11 +391,11 @@ const App = () => {
                       <div className="w-12 h-1 bg-brand-pink/50 rounded-full" />
                     </div>
                     
-                    <p className="text-white/40 text-sm mb-6 leading-relaxed h-10 line-clamp-2">{plan.description}</p>
+                    <p className="text-white text-sm mb-6 leading-relaxed h-10 line-clamp-2">{plan.description}</p>
                     
                     <div className="flex items-end gap-1 mb-2">
                       <span className="text-4xl font-black italic tracking-tighter">₹{plan.price.toLocaleString()}</span>
-                      <span className="text-xs font-bold text-white/30 mb-1">/ ENTRY</span>
+                      <span className="text-xs font-bold text-white mb-1">/ ENTRY</span>
                     </div>
                     
                     {plan.extra && (
@@ -522,10 +522,24 @@ const App = () => {
 
             <div className="lg:mt-12">
               {isSuccess ? (
-                <div className="glass-card p-12 rounded-4xl text-center border-2 border-green-500/30">
-                  <CheckCircle2 size={64} className="text-green-500 mx-auto mb-6" />
-                  <h3 className="text-3xl font-bold mb-4">Request Sent!</h3>
-                  <button onClick={() => setIsSuccess(false)} className="text-brand-pink font-bold hover:underline">New Booking</button>
+                <div className="glass-card p-12 rounded-4xl text-center border-2 border-brand-pink/30 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-brand-pink/5 opacity-20 pointer-events-none" />
+                  <div className="relative z-10">
+                    <div className="bg-brand-pink/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+                      <Ticket size={40} className="text-brand-pink" />
+                    </div>
+                    <h3 className="text-4xl font-black mb-2 italic tracking-tighter uppercase">Pass booked!</h3>
+                    <p className="text-white/60 mb-8 text-lg">Hey <span className="text-brand-pink font-bold">{successName}</span>, your booking request has been sent! We will verify and send your digital pass on WhatsApp shortly.</p>
+                    
+                    <div className="flex flex-col gap-4">
+                      <button 
+                        onClick={() => setIsSuccess(false)} 
+                        className="w-full bg-white text-black py-4 rounded-2xl font-black text-sm tracking-[0.2em] uppercase hover:bg-brand-pink hover:text-white transition-all duration-300"
+                      >
+                        New Booking
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -563,9 +577,7 @@ const App = () => {
                       <span className="text-white/40 text-sm">{formData.screenshot ? (formData.screenshot as File).name : 'Upload Screenshot'}</span>
                       <input name="screenshot" required type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                     </label>
-                    {/* Hidden input for Access Key */}
-                    <input type="hidden" name="access_key" value="9af12647-47fe-4902-841b-a81ab2284520" />
-                  </div>
+                    </div>
                   <button disabled={isSubmitting} type="submit" className="w-full bg-brand-pink text-white py-5 rounded-2xl font-black text-xl disabled:opacity-50">{isSubmitting ? 'SENDING...' : 'SUBMIT BOOKING'}</button>
                 </form>
               )}
@@ -593,7 +605,7 @@ const App = () => {
             <div>
               <h4 className="text-xl font-bold mb-6">Contact</h4>
               <div className="bg-white/5 p-6 rounded-3xl border border-white/10">
-                <a href="tel:+918888888888" className="flex items-center gap-4 text-xl font-black hover:text-brand-pink transition-colors"><Phone size={20} /> +91 XXXX XXX XXX</a>
+                <a href="tel:+918888888888" className="flex items-center gap-4 text-xl font-black hover:text-brand-pink transition-colors"><Phone size={20} /> +91 9070044441</a>
               </div>
             </div>
           </div>
