@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff007f;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9d00ff;
+}
+
+@theme {
+  --color-brand-pink: #ff007f;
+  --color-brand-purple: #9d00ff;
+  --color-brand-orange: #ff6a00;
+  --color-brand-cyan: #00e5ff;
+
+  --radius-4xl: 2.5rem;
+}
+
+@utility glass {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-4px);
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(to right, #ff007f, #9d00ff, #00e5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility ticket-shape {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  
+  --notch-pos: 75%;
+  --mask: radial-gradient(circle at 0 var(--notch-pos), transparent 12px, #000 13px),
+          radial-gradient(circle at 100% var(--notch-pos), transparent 12px, #000 13px);
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.03) 50%,
+      transparent 75%
+    );
+    background-size: 200% 200%;
+    animation: shimmer 8s infinite linear;
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 0, 127, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 0, 127, 0.1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% -200%; }
+  100% { background-position: 200% 200%; }
+}
+
+@utility perforation {
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+  background-size: 10px 1px;
+  position: relative;
+  width: 100%;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    background: #000;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  &::before { left: -32px; }
+  &::after { right: -32px; }
+}
+
+:root {
+  font-family: 'Outfit', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  color: #fff;
+  background-color: #000;
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+  overflow-x: hidden;
+  background-attachment: fixed;
+  background-image: 
+    radial-gradient(circle at 0% 0%, rgba(255, 0, 127, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(157, 0, 255, 0.05) 0%, transparent 40%);
+}
+
+@utility bg-grid-white {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+@utility blob {
+  filter: blur(80px);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -50px) rotate(10deg); }
+  66% { transform: translate(-20px, 20px) rotate(-10deg); }
+}
+
+@utility animate-float {
+  animation: float 20s infinite ease-in-out;
+}
+
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
