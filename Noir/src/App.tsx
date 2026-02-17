@@ -8,8 +8,7 @@ import {
   Ticket, 
   Camera, 
   Phone, 
-  Instagram, 
-  Facebook,
+  Instagram,
   Menu,
   X,
   ArrowRight,
@@ -592,7 +591,16 @@ const App = () => {
               <h3 className="text-3xl font-black mb-6">NOIR EVENTS</h3>
               <p className="text-white/40 leading-relaxed mb-6">The most immersive Holi celebration in Udhampur.</p>
               <div className="flex gap-4">
-                {[Instagram, Facebook].map((Icon, i) => <Icon key={i} className="text-white/40 hover:text-brand-pink cursor-pointer transition-colors" size={24} />)}
+                <a 
+                  href="https://www.instagram.com/the_noir_events?igsh=MXR5ZTloOW02azNyag%3D%3D&utm_source=qr" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/40 hover:text-brand-pink transition-colors"
+                  onMouseEnter={() => setIsHoveringLink(true)}
+                  onMouseLeave={() => setIsHoveringLink(false)}
+                >
+                  <Instagram size={24} />
+                </a>
               </div>
             </div>
             <div>
@@ -605,7 +613,7 @@ const App = () => {
             <div>
               <h4 className="text-xl font-bold mb-6">Contact</h4>
               <div className="bg-white/5 p-6 rounded-3xl border border-white/10">
-                <a href="tel:+918888888888" className="flex items-center gap-4 text-xl font-black hover:text-brand-pink transition-colors"><Phone size={20} /> +91 9070044441</a>
+                <a href="tel:+919070044441" className="flex items-center gap-4 text-xl font-black hover:text-brand-pink transition-colors"><Phone size={20} /> +91 9070044441</a>
               </div>
             </div>
           </div>
