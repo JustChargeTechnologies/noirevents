@@ -114,6 +114,10 @@ app.post('/api/book', upload.single('screenshot'), async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
