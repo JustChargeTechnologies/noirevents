@@ -529,7 +529,7 @@ const App = () => {
                       <Ticket size={40} className="text-brand-pink" />
                     </div>
                     <h3 className="text-4xl font-black mb-2 italic tracking-tighter uppercase">Pass booked!</h3>
-                    <p className="text-white/60 mb-8 text-lg">Hey <span className="text-brand-pink font-bold">{successName}</span>, your booking request has been sent! We will verify and send your digital pass on WhatsApp shortly.</p>
+                    <p className="text-white/60 mb-8 text-lg">Hey <span className="text-brand-pink font-bold">{successName}</span>,Your Ticket have been booked. </p>
                     
                     <div className="flex flex-col gap-4">
                       <button 
