@@ -25,14 +25,15 @@ interface PricingPlan {
   price: number;
   description: string;
   extra?: string;
+  extra2?: string;
 }
 
 const pricingData: PricingPlan[] = [
-  { id: 'male-stag', name: 'Male Stag', price: 999, description: 'Single entry for male', extra: 'Unlimited Snacks' },
-  { id: 'female-stag', name: 'Female Stag', price: 899, description: 'Single entry for female', extra: 'Unlimited Snacks' },
-  { id: 'couple', name: 'Couple', price: 1499, description: 'Entry for one couple', extra: 'Unlimited Snacks' },
-  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 Redeemable', extra: '5 Pax Table (1 Host + 4 Guests)' },
-  { id: 'vip', name: 'VIP Table', price: 14999, description: '₹12000 Redeemable' },
+  { id: 'male-stag', name: 'Male Stag', price: 999, description: 'Single entry for male', extra: 'Welcome Drink' },
+  { id: 'female-stag', name: 'Female Stag', price: 899, description: 'Single entry for female', extra: 'Welcome Drink' },
+  { id: 'couple', name: 'Couple', price: 1499, description: 'Entry for one couple', extra: 'Welcome Drink' },
+  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 Redeemable', extra: '5 Pax Table (1 Host + 4 Guests)', extra2: 'unlimited snacks' },
+  { id: 'vip', name: 'VIP Table', price: 14999, description: '₹12000 Redeemable', extra: 'unlimited snacks' },
 ]
 
 const App = () => {
@@ -401,6 +402,12 @@ const App = () => {
                       <div className="inline-flex items-center gap-1.5 bg-brand-cyan/10 px-3 py-1 rounded-full border border-brand-cyan/20 mb-2">
                         <div className="w-1 h-1 bg-brand-cyan rounded-full animate-pulse" />
                         <span className="text-brand-cyan text-xs font-black uppercase tracking-wider">{plan.extra}</span>
+                      </div>
+                    )}
+                    {plan.extra2 && (
+                      <div className="inline-flex items-center gap-1.5 bg-brand-cyan/10 px-3 py-1 rounded-full border border-brand-cyan/20 mb-2">
+                        <div className="w-1 h-1 bg-brand-cyan rounded-full animate-pulse" />
+                        <span className="text-brand-cyan text-xs font-black uppercase tracking-wider">{plan.extra2}</span>
                       </div>
                     )}
                   </div>
