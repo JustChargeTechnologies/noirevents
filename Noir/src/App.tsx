@@ -29,11 +29,11 @@ interface PricingPlan {
 }
 
 const pricingData: PricingPlan[] = [
-  { id: 'male-stag', name: 'Male Stag', price: 999, description: 'Single entry for male', extra: 'Welcome Drink' },
-  { id: 'female-stag', name: 'Female Stag', price: 899, description: 'Single entry for female', extra: 'Welcome Drink' },
-  { id: 'couple', name: 'Couple', price: 1499, description: 'Entry for one couple', extra: 'Welcome Drink' },
-  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 Redeemable', extra: '5 Pax Table (1 Host + 4 Guests)', extra2: ' ' },
-  { id: 'vip', name: 'VIP Table', price: 14999, description: '₹12000 Redeemable', extra: ' ' },
+  { id: 'male-stag', name: 'Male Stag', price: 999, description: 'Single entry for male', extra: 'Welcome Drink'  ,extra2:"Sold Out" },
+  { id: 'female-stag', name: 'Female Stag', price: 899, description: 'Single entry for female', extra: 'Welcome Drink' ,extra2:"Sold Out"},
+  { id: 'couple', name: 'Couple', price: 1499, description: 'Entry for one couple', extra: 'Welcome Drink' ,extra2:"Sold Out"},
+  { id: 'standing-table', name: 'Standing Table', price: 10000, description: '₹8000 Redeemable', extra: '5 Pax Table (1 Host + 4 Guests)', extra2: ' Sold Out' },
+  { id: 'vip', name: 'VIP Table', price: 14999, description: '₹12000 Redeemable', extra: 'Sold Out ' },
 ]
 
 const App = () => {
