@@ -443,6 +443,15 @@ const App = () => {
           </div>
         </section>
 
+        {/* Sold Out Section */}
+        <section id="sold-out" className="py-24 px-6 border-y border-white/5">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">Sold Out</h2>
+            <div className="w-24 h-1 bg-brand-pink mx-auto mb-6" />
+            <p className="text-white/60 text-lg">All passes for this event are currently sold out.</p>
+          </div>
+        </section>
+
         {/* Booking Form Section */}
         <section id="booking" ref={bookingRef} tabIndex={-1} className="py-24 px-6 bg-black relative outline-none">
           <div className="absolute inset-0 bg-grid-white/[0.02] -z-10" />
